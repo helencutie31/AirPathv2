@@ -1,0 +1,101 @@
+<div class="phone-container">
+    <header class="app-header">
+        <div class="logo-area" data-id="1">
+            <img src="../logo/logoAirPath_new02.png" alt="AirPath logo">
+        </div>
+        <img src="user-avatar.jpg" alt="Avatar" class="avatar-img" data-id="2">
+    </header>
+
+    <main class="scrollable-content profile-page">
+        
+        <div class="profile-header-center">
+            <div class="main-avatar-wrapper" data-id="3">
+                <img src="user-avatar.jpg" alt="Main Avatar" class="main-avatar-img">
+                <span class="edit-avatar-badge">📷</span>
+            </div>
+            <div class="user-primary-info" data-id="4">
+                <h2 class="user-full-name">Lê Minh Anh</h2>
+                <span class="user-join-date">Thành viên từ tháng 1 năm 2024</span>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3 class="section-title-small">Thông tin cá nhân</h3>
+            <div class="settings-card">
+                <div class="info-row">
+                    <div class="info-content" data-id="5">
+                        <span class="info-label">Họ và tên</span>
+                        <span class="info-value" id="disp-name">Lê Minh Anh</span>
+                    </div>
+                    <button class="btn-edit-inline" data-id="6" data-field="name">✏️</button>
+                </div>
+                <div class="info-row">
+                    <div class="info-content" data-id="5">
+                        <span class="info-label">Email</span>
+                        <span class="info-value" id="disp-email">minhanh.le@email.com</span>
+                    </div>
+                    <button class="btn-edit-inline" data-id="6" data-field="email">✏️</button>
+                </div>
+                <div class="info-row no-border">
+                    <div class="info-content" data-id="5">
+                        <span class="info-label">Số điện thoại</span>
+                        <span class="info-value" id="disp-phone">0987 *** 321</span>
+                    </div>
+                    <button class="btn-edit-inline" data-id="6" data-field="phone">✏️</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3 class="section-title-small">Cài đặt ứng dụng</h3>
+            <div class="settings-card">
+                
+                <div class="slider-row">
+                    <div class="slider-header">
+                        <span class="setting-item-title">⚠️ Ngưỡng cảnh báo AQI</span>
+                        <span class="slider-val-display" id="aqi-threshold-val">50</span>
+                    </div>
+                    <input type="range" min="0" max="200" value="50" class="custom-range-slider" id="aqi-slider" data-id="7">
+                    <div class="slider-labels">
+                        <span>Tốt</span>
+                        <span>Bình thường</span>
+                        <span>Xấu</span>
+                    </div>
+                </div>
+                
+                <div class="divider-line"></div>
+
+                <div class="toggle-row">
+                    <span class="setting-item-title">🔔 Thông báo đẩy</span>
+                    <label class="switch">
+                        <input type="checkbox" checked id="toggle-push" data-id="8">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="divider-line"></div>
+
+                <div class="toggle-row">
+                    <span class="setting-item-title">📧 Cập nhật qua email</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-email" data-id="9">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+            <button class="btn-logout" data-id="10">
+            <span class="logout-icon">🚪</span> Đăng xuất
+        </button>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item" data-id="11">🏠<span class="nav-label">Trang chủ</span></a>
+        <a href="#" class="nav-item" data-id="12">🔍<span class="nav-label">Tìm kiếm</span></a>
+        <a href="#" class="nav-item" data-id="13">🏃<span class="nav-label">Lộ trình</span></a>
+        <a href="#" class="nav-item active" data-id="14">👤<span class="nav-label">Hồ sơ</span></a>
+    </nav>
+</div>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMove HaNoi - ERD Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SafeMove HaNoi - Database ERD</h1>
+        <div class="mermaid">
+erDiagram
+    USERS ||--o{ USER_PROFILES : has
+    USERS ||--o{ USER_CONDITIONS : has
+    USERS ||--o{ USER_ACTIVITIES : has
+    USERS ||--o{ ROUTE_REQUESTS : creates
+    USERS ||--o{ ADVICE_EVENTS : receives
+    USERS ||--o{ NOTIFICATIONS : receives
+    USERS ||--o{ NOTIFICATION_PREFERENCES : has
+    HEALTH_CONDITIONS ||--o{ USER_CONDITIONS : 1
+    HEALTH_CONDITIONS ||--o{ ADVICE_RULES : 1
+    ACTIVITIES ||--o{ USER_ACTIVITIES : 1
+    ACTIVITIES ||--o{ ADVICE_RULES : 1
+    ACTIVITIES ||--o{ ADVICE_EVENTS : 1
+    ACTIVITIES ||--o{ USER_PROFILES : 1
+    LOCATIONS ||--o{ AQI_MEASUREMENTS : 1
+    LOCATIONS ||--o{ ADVICE_EVENTS : 1
+    AQI_MEASUREMENTS ||--o{ ADVICE_EVENTS : 1
+    ROUTE_REQUESTS ||--o{ ROUTE_OPTIONS : 1
+    ROUTE_REQUESTS ||--o{ NOTIFICATIONS : 1
+    INDOOR_PLACES ||--o{ INDOOR_PLACE_AQI : 1
+    ADVICE_RULES ||--o{ ADVICE_EVENTS : 1
+    ADVICE_RULES ||--o{ NOTIFICATIONS : 1
+    ADVICE_EVENTS ||--o{ NOTIFICATIONS : 1
+    USERS {
+        uuid id
+        text email
+        text password_hash
+        text full_name
+        int birth_year
+        double home_lat
+        double home_lng
+    }
+    USER_PROFILES {
+        uuid user_id
+        int alert_threshold
+        double default_max_route_ratio
+        uuid primary_activity_id
+        text mask_preference
+    }
+    USER_CONDITIONS {
+        uuid user_id
+        uuid condition_id
+        int severity
+    }
+    USER_ACTIVITIES {
+        uuid user_id
+        uuid activity_id
+        int frequency_per_week
+        boolean is_primary
+    }
+    HEALTH_CONDITIONS {
+        uuid id
+        text slug
+        text name
+        text description
+    }
+    ACTIVITIES {
+        uuid id
+        text slug
+        text name
+        text description
+    }
+    LOCATIONS {
+        uuid id
+        text name
+        text location_type
+        text city
+        text district
+        text address
+        double lat
+        double lng
+    }
+    AQI_MEASUREMENTS {
+        bigint id
+        uuid location_id
+        timestamp measured_at
+        int aqi
+        decimal pm25
+        decimal pm10
+    }
+    ROUTE_REQUESTS {
+        uuid id
+        uuid user_id
+        text origin_label
+        double origin_lat
+        double origin_lng
+        text destination_label
+        double destination_lat
+        double destination_lng
+        decimal max_ratio
+        text status
+    }
+    ROUTE_OPTIONS {
+        uuid id
+        uuid request_id
+        int option_rank
+        text route_name
+        int distance_m
+        int duration_s
+        decimal avg_aqi
+        decimal exposure_score
+        text exposure_level
+        boolean is_recommended
+    }
+    INDOOR_PLACES {
+        uuid id
+        text name
+        text city
+        text district
+        double lat
+        double lng
+        boolean aqi_controlled
+        boolean has_hepa
+    }
+    INDOOR_PLACE_AQI {
+        bigint id
+        uuid place_id
+        timestamp measured_at
+        int aqi
+    }
+    ADVICE_RULES {
+        uuid id
+        text name
+        uuid condition_id
+        uuid activity_id
+        int aqi_min
+        int aqi_max
+        text severity
+        text title
+        text body
+    }
+    ADVICE_EVENTS {
+        uuid id
+        uuid user_id
+        uuid rule_id
+        uuid location_id
+        bigint aqi_measurement_id
+        uuid activity_id
+        text severity
+        text title
+        text body
+    }
+    NOTIFICATIONS {
+        uuid id
+        uuid user_id
+        text type
+        text title
+        text description
+        boolean is_read
+        boolean is_pinned
+        uuid related_route_request_id
+        uuid related_advice_event_id
+    }
+    NOTIFICATION_PREFERENCES {
+        uuid user_id
+        boolean alert_enabled
+        boolean tip_enabled
+        boolean route_enabled
+        boolean social_enabled
+        boolean system_enabled
+        boolean push_enabled
+        boolean email_enabled
+    }
+        </div>
+    </div>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>

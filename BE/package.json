@@ -1,0 +1,17 @@
+{
+  "name": "airparth-be",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=../.env src/server.mjs",
+    "start": "node src/server.mjs",
+    "check": "node --env-file=../.env --eval \"import('./src/db.mjs').then(async ({ getDatabaseHealth }) => { const result = await getDatabaseHealth(); console.log(JSON.stringify(result, null, 2)); }).catch((error) => { console.error(error); process.exit(1); });\""
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1",
+    "dotenv": "^17.4.2",
+    "nodemailer": "^8.0.10",
+    "web-push": "^3.6.7"
+  }
+}

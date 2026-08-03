@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPath - Content Moderation</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <header class="top-nav">
+        <button id="btnBack" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Bảng điều khiển
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Title & Description -->
+        <h1 class="page-title">Quản lý bình luận không phù hợp</h1>
+        <p class="page-desc">Để bảo vệ an toàn cộng đồng, vui lòng kiểm tra và xử lý các bình luận vi phạm được báo cáo.</p>
+
+        <!-- Filter Area -->
+        <div class="filter-section">
+            <h2 class="filter-label">Lọc theo địa điểm</h2>
+            <div class="filter-chips" id="locationFilters">
+                <button class="chip active">Tất cả</button>
+                <button class="chip">Công viên Bách Thảo</button>
+                <button class="chip">Hồ Hoàn Kiếm</button>
+                <button class="chip">Khu vực quanh Hồ Tây</button>
+            </div>
+
+            <h2 class="filter-label" style="margin-top: 16px;">Trạng thái</h2>
+            <div class="filter-checkboxes">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkUnprocessed" checked> 
+                    <span class="checkmark"></span>
+                    Chưa xử lý
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="chkDeleted"> 
+                    <span class="checkmark"></span>
+                    Đã xóa
+                </label>
+            </div>
+        </div>
+
+        <!-- Comment List Area -->
+        <div class="comment-list">
+            
+            <!-- Comment Group 1: Bach Thao Park -->
+            <div class="location-group">
+                <h3 class="location-header"><i class="fa-solid fa-location-dot"></i> Công viên Bách Thảo</h3>
+                
+                <div class="comment-card">
+                    <img src="https://images.unsplash.com/photo-1542272201-b1ca555f8505?auto=format&fit=crop&w=400&q=80" alt="Bach Thao Park" class="card-img">
+                    <div class="card-body">
+                        <div class="user-info">
+                                <div class="user-profile">
+                                <img src="https://i.pravatar.cc/100?img=12" alt="Avatar" class="avatar">
+                                <span class="user-id">ID người dùng: A9283</span>
+                            </div>
+                            <span class="violation-badge">Số lần vi phạm: 3</span>
+                        </div>
+                        <p class="comment-text">"Chạy ở đây đường quá hẹp, người đi bộ cản trở. Mong họ tránh sang một bên."</p>
+                        <div class="meta-info">
+                            <span class="meta-item"><i class="fa-regular fa-calendar"></i> 2024/05/20 14:30</span>
+                            <span class="meta-item"><i class="fa-solid fa-folder"></i> Công viên Bách Thảo</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-delete">Xóa</button>
+                            <button class="btn btn-restore">Phục hồi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment Group 2: Hoan Kiem Lake -->
+            <div class="location-group">
+                <h3 class="location-header"><i class="fa-solid fa-location-dot"></i> Hồ Hoàn Kiếm</h3>
+                
+                <div class="comment-card">
+                    <img src="https://images.unsplash.com/photo-1559592413-7cea4ee303e1?auto=format&fit=crop&w=400&q=80" alt="Hoan Kiem Lake" class="card-img">
+                    <div class="card-body">
+                        <div class="user-info">
+                                <div class="user-profile">
+                                <img src="https://i.pravatar.cc/100?img=33" alt="Avatar" class="avatar">
+                                <span class="user-id">ID người dùng: K7731</span>
+                            </div>
+                            <span class="violation-badge">Số lần vi phạm: 2</span>
+                        </div>
+                        <p class="comment-text">"Rác nhiều quá. Xin hãy dọn dẹp."<br><span style="color: #666; font-size: 12px;">(Báo cáo spam: bài đăng trùng lặp)</span></p>
+                        <div class="meta-info">
+                            <span class="meta-item"><i class="fa-regular fa-calendar"></i> 2024/05/20 10:20</span>
+                            <span class="meta-item"><i class="fa-solid fa-folder"></i> Hồ Hoàn Kiếm</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-delete">Xóa</button>
+                            <button class="btn btn-restore">Phục hồi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

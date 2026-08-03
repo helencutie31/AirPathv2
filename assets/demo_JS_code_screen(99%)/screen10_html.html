@@ -1,0 +1,40 @@
+<div class="phone-container">
+    <header class="app-header moderation-header">
+        <button class="back-btn-mod" data-id="1">← Bảng điều khiển</button>
+    </header>
+
+    <main class="scrollable-content mod-page">
+        <h2 class="mod-title" data-id="2">Quản lý bình luận không phù hợp</h2>
+        
+        <p class="mod-desc" data-id="3">
+            Để bảo vệ an toàn cộng đồng, vui lòng kiểm tra và xử lý các bình luận vi phạm được báo cáo.
+        </p>
+
+        <div class="filter-section-box" data-id="4">
+            <h4 class="filter-lbl" data-id="5">Lọc theo địa điểm</h4>
+            
+            <div class="location-filters-group" data-id="6">
+                <button class="loc-filter-btn active" data-loc="all">Tất cả</button>
+                <button class="loc-filter-btn" data-loc="bachthao">Công viên Bách Thảo</button>
+                <button class="loc-filter-btn" data-loc="hoankiem">Hồ Hoàn Kiếm</button>
+                <button class="loc-filter-btn" data-loc="tayho">Khu vực quanh Hồ Tây</button>
+            </div>
+
+            <h4 class="filter-lbl" data-id="7">Trạng thái</h4>
+            
+            <div class="status-filters-group">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="filter-unprocessed" checked data-id="8">
+                    <span class="checkmark"></span> Chưa xử lý
+                </label>
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="filter-deleted" data-id="9">
+                    <span class="checkmark"></span> Đã xóa
+                </label>
+            </div>
+        </div>
+
+        <div id="comments-container">
+            </div>
+    </main>
+</div>

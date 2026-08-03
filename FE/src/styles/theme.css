@@ -1,0 +1,28 @@
+@theme inline {
+  --color-background: #f8fbf8;
+  --color-foreground: #0f172a;
+  --color-border: rgba(15, 23, 42, 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-slate-900 antialiased;
+  }
+
+  h1 {
+    @apply text-2xl font-medium leading-tight;
+  }
+
+  h2 {
+    @apply text-xl font-medium leading-tight;
+  }
+
+  h3 {
+    @apply text-lg font-medium leading-tight;
+  }
+}
+

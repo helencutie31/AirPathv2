@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMove HaNoi - ERD</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .mermaid {
+            background: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mermaid">
+erDiagram
+    USERS ||--o{ USER_PROFILES : has
+    USERS ||--o{ USER_CONDITIONS : has
+    USERS ||--o{ USER_ACTIVITIES : has
+    USERS ||--o{ ROUTE_REQUESTS : creates
+    USERS ||--o{ ADVICE_EVENTS : receives
+    USERS ||--o{ NOTIFICATIONS : receives
+    USERS ||--o{ NOTIFICATION_PREFERENCES : has
+    HEALTH_CONDITIONS ||--o{ USER_CONDITIONS : linked_to
+    HEALTH_CONDITIONS ||--o{ ADVICE_RULES : triggers
+    ACTIVITIES ||--o{ USER_ACTIVITIES : linked_to
+    ACTIVITIES ||--o{ ADVICE_RULES : targets
+    ACTIVITIES ||--o{ ADVICE_EVENTS : related_to
+    ACTIVITIES ||--o{ USER_PROFILES : primary
+    LOCATIONS ||--o{ AQI_MEASUREMENTS : has
+    LOCATIONS ||--o{ ADVICE_EVENTS : measured_at
+    AQI_MEASUREMENTS ||--o{ ADVICE_EVENTS : triggers
+    ROUTE_REQUESTS ||--o{ ROUTE_OPTIONS : contains
+    ROUTE_REQUESTS ||--o{ NOTIFICATIONS : related_to
+    ROUTE_OPTIONS ||--o{ ROUTE_REQUESTS : belongs_to
+    INDOOR_PLACES ||--o{ INDOOR_PLACE_AQI : has
+    ADVICE_RULES ||--o{ ADVICE_EVENTS : generates
+    ADVICE_RULES ||--o{ NOTIFICATIONS : creates
+    ADVICE_EVENTS ||--o{ NOTIFICATIONS : related_to
+    USERS : uuid id PK
+    USERS : citext email UK
+    USERS : text password_hash
+    USERS : text full_name
+    USER_PROFILES : uuid user_id PK,FK
+    USER_PROFILES : smallint alert_threshold
+    USER_PROFILES : uuid primary_activity_id FK
+    USER_CONDITIONS : uuid user_id PK,FK
+    USER_CONDITIONS : uuid condition_id PK,FK
+    USER_CONDITIONS : smallint severity
+    USER_ACTIVITIES : uuid user_id PK,FK
+    USER_ACTIVITIES : uuid activity_id PK,FK
+    HEALTH_CONDITIONS : uuid id PK
+    HEALTH_CONDITIONS : text slug UK
+    HEALTH_CONDITIONS : text name UK
+    ACTIVITIES : uuid id PK
+    ACTIVITIES : text slug UK
+    ACTIVITIES : text name UK
+    LOCATIONS : uuid id PK
+    LOCATIONS : text name
+    LOCATIONS : text city
+    LOCATIONS : text address
+    LOCATIONS : double lat
+    LOCATIONS : double lng
+    AQI_MEASUREMENTS : bigserial id PK
+    AQI_MEASUREMENTS : uuid location_id FK
+    AQI_MEASUREMENTS : smallint aqi
+    AQI_MEASUREMENTS : numeric pm25
+    ROUTE_REQUESTS : uuid id PK
+    ROUTE_REQUESTS : uuid user_id FK
+    ROUTE_REQUESTS : double origin_lat
+    ROUTE_REQUESTS : double origin_lng
+    ROUTE_REQUESTS : double destination_lat
+    ROUTE_REQUESTS : double destination_lng
+    ROUTE_OPTIONS : uuid id PK
+    ROUTE_OPTIONS : uuid request_id FK
+    ROUTE_OPTIONS : int distance_m
+    ROUTE_OPTIONS : int duration_s
+    ROUTE_OPTIONS : numeric avg_aqi
+    ROUTE_OPTIONS : boolean is_recommended
+    INDOOR_PLACES : uuid id PK
+    INDOOR_PLACES : text name
+    INDOOR_PLACES : double lat
+    INDOOR_PLACES : double lng
+    INDOOR_PLACE_AQI : bigserial id PK
+    INDOOR_PLACE_AQI : uuid place_id FK
+    INDOOR_PLACE_AQI : smallint aqi
+    ADVICE_RULES : uuid id PK
+    ADVICE_RULES : text name
+    ADVICE_RULES : smallint aqi_min
+    ADVICE_RULES : advice_severity severity
+    ADVICE_EVENTS : uuid id PK
+    ADVICE_EVENTS : uuid user_id FK
+    ADVICE_EVENTS : advice_severity severity
+    NOTIFICATIONS : uuid id PK
+    NOTIFICATIONS : uuid user_id FK
+    NOTIFICATIONS : notification_type type
+    NOTIFICATIONS : boolean is_read
+    NOTIFICATION_PREFERENCES : uuid user_id PK,FK
+    NOTIFICATION_PREFERENCES : boolean alert_enabled
+    </div>
+    <script>
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>

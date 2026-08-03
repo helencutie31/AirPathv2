@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPath - Dashboard</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <header>
+        <div class="logo" id="logoHeader">
+            <img src="../logo/logoAirPath_new02.png" alt="AirPath logo">
+        </div>
+        <img src="https://ui-avatars.com/api/?name=Admin&background=333&color=fff" alt="Profile" class="avatar" id="avatarProfile">
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Greeting -->
+        <div class="greeting-section">
+            <div class="greeting-text">Chào buổi sáng, quản trị viên</div>
+            <h1 class="page-title">Tổng quan hệ thống</h1>
+        </div>
+
+        <!-- System Average AQI Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <i class="fa-solid fa-leaf"></i> AQI trung bình hệ thống
+                </div>
+                <div class="badge-good">Tốt</div>
+            </div>
+            <div class="aqi-value-container">
+                <div class="aqi-number">42</div>
+                <div class="aqi-unit">AQI</div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-labels">
+                    <span>Chỉ số hôm nay</span>
+                    <span>Dưới 50</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Users Card -->
+        <div class="card user-card">
+                <div class="card-title" style="margin-bottom: 12px; color: var(--text-dark);">
+                <i class="fa-solid fa-user-group" style="color: var(--text-dark);"></i> Người dùng hoạt động
+            </div>
+            <div class="user-card-content">
+                <div class="user-stats">
+                    <div class="user-number">1,284</div>
+                    <div class="user-increase">Tăng <span>12% so với hôm qua</span></div>
+                </div>
+                <div class="avatar-stack">
+                    <img src="https://i.pravatar.cc/100?img=11" alt="User 1">
+                    <img src="https://i.pravatar.cc/100?img=32" alt="User 2">
+                    <img src="https://i.pravatar.cc/100?img=15" alt="User 3">
+                    <div class="avatar-more">+24</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert Section -->
+        <h2 class="section-title">Cần xử lý nhanh</h2>
+        <div class="card alert-card" id="violationNotice">
+            <i class="fa-solid fa-circle-exclamation alert-icon"></i>
+            <div class="alert-content">
+                <div class="alert-title">Nội dung vi phạm mới</div>
+                <div class="alert-desc">Yêu cầu kiểm duyệt 5 bình luận tại ga Ba Đình.</div>
+            </div>
+            <i class="fa-solid fa-chevron-right alert-arrow"></i>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a class="nav-item active" id="tabDashboard">
+            <i class="fa-solid fa-house"></i>
+            <span>Bảng điều khiển</span>
+        </a>
+        <a class="nav-item" id="tabFacility">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Địa điểm</span>
+        </a>
+        <a class="nav-item" id="tabProfile">
+            <i class="fa-regular fa-user"></i>
+            <span>Hồ sơ</span>
+        </a>
+    </nav>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

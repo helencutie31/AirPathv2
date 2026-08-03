@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPath - Admin Profile</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <header>
+        <div class="logo" id="logoHeader">
+            <img src="../logo/logoAirPath_new02.png" alt="AirPath logo">
+        </div>
+        <img src="https://i.pravatar.cc/150?img=11" alt="Profile" class="header-avatar" id="headerAvatar">
+    </header>
+
+    <!-- Main Content -->
+    <main class="profile-main">
+        
+        <!-- Main Avatar Section -->
+        <div class="profile-header">
+            <div class="avatar-wrapper">
+                <img src="https://i.pravatar.cc/150?img=11" alt="Main Avatar" class="main-avatar">
+                <button class="btn-edit-avatar" id="btnEditAvatar" title="Đổi ảnh">
+                    <i class="fa-solid fa-camera"></i>
+                </button>
+            </div>
+            <h1 class="profile-name">Lê Minh Anh</h1>
+            <p class="profile-role">Quản trị viên hệ thống</p>
+        </div>
+
+        <!-- Personal Information Section -->
+        <div class="info-section">
+            <h2 class="section-title">Thông tin cá nhân</h2>
+            <div class="info-card">
+                
+                <!-- Info Row 1: Name -->
+                <div class="info-row">
+                    <div class="info-content">
+                        <span class="info-label">Họ và tên</span>
+                        <span class="info-value">Lê Minh Anh</span>
+                    </div>
+                    <button class="btn-edit-inline" title="Chỉnh sửa"><i class="fa-solid fa-pencil"></i></button>
+                </div>
+
+                <!-- Info Row 2: Email -->
+                <div class="info-row">
+                    <div class="info-content">
+                        <span class="info-label">Email</span>
+                        <span class="info-value">minhanh.le@email.com</span>
+                    </div>
+                    <button class="btn-edit-inline" title="Chỉnh sửa"><i class="fa-solid fa-pencil"></i></button>
+                </div>
+
+                <!-- Info Row 3: Phone -->
+                <div class="info-row">
+                    <div class="info-content">
+                        <span class="info-label">Số điện thoại</span>
+                        <span class="info-value">0987 *** 321</span>
+                    </div>
+                    <button class="btn-edit-inline" title="Chỉnh sửa"><i class="fa-solid fa-pencil"></i></button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Verification Status Card -->
+        <div class="verification-card">
+            <div class="verification-header">
+                <i class="fa-solid fa-circle-check"></i> Quản trị viên đã được xác minh
+            </div>
+            <p class="verification-desc">
+                Danh tính của bạn đã được xác minh hoàn toàn, cho phép truy cập tất cả công cụ quản trị.
+            </p>
+        </div>
+
+        <!-- Logout Button -->
+        <button class="btn-logout" id="btnLogout">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất
+        </button>
+
+        <!-- Version Info -->
+        <div class="app-version">
+            Phiên bản 2.4.0 - AIRPATH 2026
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+            <a class="nav-item" id="tabDashboard">
+            <i class="fa-solid fa-house"></i>
+            <span>Bảng điều khiển</span>
+            </a>
+        <a class="nav-item" id="tabFacility">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Địa điểm</span>
+        </a>
+        <a class="nav-item active" id="tabProfile">
+            <i class="fa-solid fa-user"></i>
+            <span>Hồ sơ</span>
+        </a>
+    </nav>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

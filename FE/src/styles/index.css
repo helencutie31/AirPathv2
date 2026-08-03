@@ -1,0 +1,48 @@
+@import "./tailwind.css";
+@import "./theme.css";
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family:
+    Inter,
+    "Noto Sans",
+    "Noto Sans JP",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(circle at top, rgba(217, 248, 227, 0.85), transparent 36%),
+    linear-gradient(180deg, #edf1ec 0%, #f8faf8 42%, #eef4ef 100%);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+

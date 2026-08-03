@@ -1,0 +1,22 @@
+{
+  "name": "airparth",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm --prefix FE run dev",
+    "dev:be": "npm --prefix BE run dev",
+    "build:fe": "npm --prefix FE run build",
+    "dev:api": "node --env-file=.env server/index.mjs",
+    "db:check": "node --env-file=.env --eval \"import('./server/db.mjs').then(async ({ getDatabaseHealth }) => { const result = await getDatabaseHealth(); console.log(JSON.stringify(result, null, 2)); }).catch((error) => { console.error(error); process.exit(1); });\""
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3"
+  }
+}

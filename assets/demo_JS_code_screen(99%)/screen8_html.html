@@ -1,0 +1,71 @@
+<div class="phone-container">
+    <header class="app-header admin-header">
+        <div class="logo-area">
+            <img src="../logo/logoAirPath_new02.png" alt="AirPath logo">
+        </div>
+        <span class="admin-badge">ROLE: 2</span>
+    </header>
+
+    <main class="scrollable-content form-page">
+        <h3 class="form-page-title">新規施設追加</h3>
+
+        <form id="add-facility-form" onsubmit="return false;">
+            
+            <div class="form-group">
+                <label class="form-label">位置選択 (Bản đồ vị trí)</label>
+                <div class="map-picker-container" data-id="1">
+                    <div class="mock-mini-map">
+                        <span class="map-pin">📍</span>
+                        <span class="map-instructions">地図上で位置を選択 (Di chuyển ghim để xác định vị trí)</span>
+                    </div>
+                </div>
+                <input type="hidden" id="facility-lat" value="21.0285">
+                <input type="hidden" id="facility-lng" value="105.8542">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">スポット名 (Tên địa điểm) <span class="required">*</span></label>
+                <input type="text" id="facility-name" class="form-input" placeholder="例: ホアンキエム湖周辺ルート" data-id="2">
+                <span class="error-msg" id="name-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">所在地 (Địa chỉ)</label>
+                <input type="text" id="facility-address" class="form-input" placeholder="住所またはランドマークを入力" data-id="3">
+            </div>
+
+            <div class="form-group toggle-group" data-id="4">
+                <div class="toggle-label-block">
+                    <span class="toggle-title">「Japan-friendly」ラベル</span>
+                    <p class="toggle-desc">日本人におすすめのスポットとして表示</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="facility-japan-friendly">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">主要な設備エリア (Tiện ích chính)</label>
+                <div class="amenities-selectable-group" data-id="5">
+                    <button type="button" class="amenity-select-btn" data-value="water">💧 給水所</button>
+                    <button type="button" class="amenity-select-btn" data-value="shade">☀️ 日陰</button>
+                    <button type="button" class="amenity-select-btn" data-value="toilet">🚾 トイレ</button>
+                    <button type="button" class="amenity-select-btn" data-value="bench">🪑 ベンチ</button>
+                    <button type="button" class="btn-add-more-tags">＋ 追加</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">紹介文 (Giới thiệu)</label>
+                <textarea id="facility-intro" class="form-textarea" placeholder="スポットの特徴やおすすめの利用時間などを入力してください..." data-id="6"></textarea>
+            </div>
+
+            <div class="form-actions-group">
+                <button type="button" class="btn-submit-save" data-id="7">保存する</button>
+                <button type="button" class="btn-cancel-form" data-id="8">キャンセル</button>
+            </div>
+
+        </form>
+    </main>
+</div>

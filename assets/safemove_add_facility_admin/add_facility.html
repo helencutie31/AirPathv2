@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPath - Add New Facility</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Map Area (Item 1) -->
+    <div class="map-section" id="mapSection">
+        <!-- Placeholder for Map -->
+        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=600&q=80" alt="Map" class="map-image">
+        <div class="map-pin">
+            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div class="map-instruction">Chọn vị trí trên bản đồ</div>
+    </div>
+
+    <!-- Form Area -->
+    <main class="form-container">
+        
+        <!-- Spot Name (Item 2) -->
+        <div class="form-group">
+            <label class="form-label" for="spotName">Tên địa điểm <span class="required-asterisk">*</span></label>
+            <input type="text" id="spotName" class="form-input" placeholder="Ví dụ: Đường ven Hồ Hoàn Kiếm" required>
+        </div>
+
+        <!-- Address (Item 3) -->
+        <div class="form-group">
+            <label class="form-label" for="address">Địa chỉ</label>
+            <input type="text" id="address" class="form-input" placeholder="Nhập địa chỉ hoặc điểm mốc">
+        </div>
+
+        <!-- Japan-friendly Toggle (Item 4) -->
+        <div class="form-group toggle-group">
+            <div class="toggle-info">
+                <div class="tag-japan-label">
+                    <span class="icon-jp">JP</span> Hỗ trợ tiếng Nhật
+                </div>
+                <div class="toggle-desc">Hiển thị như địa điểm gợi ý cho người dùng Nhật</div>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="chkJapanFriendly">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <!-- Amenities (Item 5) -->
+        <div class="form-group">
+            <label class="form-label">Tiện ích chính</label>
+            <div class="amenities-chips" id="amenitiesList">
+                <button type="button" class="chip active" data-value="water"><i class="fa-solid fa-droplet"></i> Trạm nước</button>
+                <button type="button" class="chip" data-value="shade"><i class="fa-regular fa-sun"></i> Bóng râm</button>
+                <button type="button" class="chip" data-value="toilet"><i class="fa-solid fa-restroom"></i> Nhà vệ sinh</button>
+                <button type="button" class="chip" data-value="bench"><i class="fa-solid fa-chair"></i> Ghế ngồi</button>
+                <button type="button" class="chip chip-add" id="btnAddAmenity">+ Thêm</button>
+            </div>
+        </div>
+
+        <!-- Introduction / Description (Item 6) -->
+        <div class="form-group">
+            <label class="form-label" for="description">Mô tả</label>
+            <textarea id="description" class="form-textarea" placeholder="Nhập đặc điểm địa điểm hoặc thời gian sử dụng được khuyến nghị..."></textarea>
+        </div>
+
+        <!-- Action Buttons (Item 7, 8) -->
+        <div class="action-buttons">
+            <button type="button" class="btn-save" id="btnSave">Lưu</button>
+            <button type="button" class="btn-cancel" id="btnCancel">Hủy</button>
+        </div>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

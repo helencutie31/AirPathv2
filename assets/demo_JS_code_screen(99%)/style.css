@@ -1,0 +1,553 @@
+/* ==========================================================================
+   1. CSS VARIABLES & GLOBAL STYLES
+   ========================================================================== */
+:root {
+    --primary-green: #117843;
+    --light-green: #e6f4ea;
+    --border-color: #ddd;
+    --text-dark: #333;
+    --text-muted: #666;
+    --background-gray: #f9f9f9;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   2. BASE LAYOUT & COMPONENTS (Dùng chung cho tất cả màn hình)
+   ========================================================================== */
+.phone-container {
+    width: 375px;
+    height: 812px;
+    background-color: #ffffff;
+    border: 8px solid #333;
+    border-radius: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.app-header {
+    height: 60px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: #fff;
+    flex-shrink: 0;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: var(--primary-green);
+    cursor: pointer;
+}
+
+.logo-area img {
+    width: auto;
+    height: 34px;
+    object-fit: contain;
+    display: block;
+}
+
+.avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+}
+
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background-color: var(--background-gray);
+    padding-bottom: 80px; /* Tránh đè lên Bottom Nav */
+}
+
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 50;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-item.active {
+    color: var(--primary-green);
+    font-weight: bold;
+}
+
+.nav-label {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   3. MÀN HÌNH 1: TRANG CHỦ (HOME)
+   ========================================================================== */
+.aqi-section { display: flex; justify-content: center; margin: 20px 0; }
+.aqi-circle-border { width: 160px; height: 160px; border: 12px solid var(--primary-green); border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; }
+.aqi-value { font-size: 48px; font-weight: bold; color: #111; }
+.aqi-label { font-size: 12px; color: var(--text-muted); }
+
+.source-container { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.source-btn { background: #fff; border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 6px; text-align: left; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.source-btn.active { border-color: var(--primary-green); background-color: var(--light-green); }
+.dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot.green { background-color: var(--primary-green); }
+
+.status-box { text-align: center; margin-bottom: 16px; }
+.advice-card { border-left: 5px solid var(--primary-green); }
+
+.weather-row { display: flex; justify-content: space-between; align-items: center; }
+.weather-box { display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border-color); flex: 1; }
+.refresh-btn { background: #fff; border: 1px solid var(--border-color); width: 44px; height: 44px; border-radius: 12px; margin-left: 10px; cursor: pointer; display: flex; justify-content: center; align-items: center;}
+
+/* ==========================================================================
+   4. MÀN HÌNH 2: TÌM KIẾM (SEARCH)
+   ========================================================================== */
+.search-sticky-header { padding: 12px 16px; background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10;}
+.search-input-wrapper { position: relative; display: flex; align-items: center; }
+.search-bar-icon { position: absolute; left: 12px; color: #999; }
+.search-input { width: 100%; box-sizing: border-box; padding: 10px 10px 10px 36px; border: 1px solid var(--border-color); border-radius: 8px; background-color: #f1f3f4; font-size: 14px; }
+
+.filter-row { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; }
+.filter-tag { background: #fff; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 12px; white-space: nowrap; cursor: pointer; }
+.filter-tag.active { background-color: var(--primary-green); color: #fff; border-color: var(--primary-green); }
+
+.spot-card { background: #fff; border-radius: 12px; border: 1px solid var(--border-color); padding: 12px; margin-bottom: 12px; display: flex; gap: 12px; align-items: center; cursor: pointer; }
+.spot-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+.spot-info-mid { flex: 1; }
+.spot-info-mid h4 { margin: 0 0 4px 0; font-size: 14px; }
+.distance-tag { font-size: 12px; color: var(--text-muted); }
+.spot-info-right { text-align: right; display: flex; flex-direction: column; gap: 4px; }
+.aqi-badge { font-weight: bold; font-size: 12px; }
+.green-text { color: #2e7d32; }
+.orange-text { color: #ef6c00; }
+
+.japan-badge { background-color: var(--light-green); color: var(--primary-green); font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+.breathing-card { background-color: #e8f5e9; border: none; color: #1b5e20; }
+
+/* ==========================================================================
+   5. MÀN HÌNH 3: CHI TIẾT ĐỊA ĐIỂM (DETAIL)
+   ========================================================================== */
+.green-sub-badge { background-color: var(--light-green); color: var(--primary-green); font-size: 11px; padding: 4px 8px; border-radius: 20px; font-weight: bold; display: inline-block;}
+.detail-title { margin: 8px 0 2px 0; font-size: 20px; }
+.detail-location { font-size: 12px; color: var(--text-muted); margin: 0 0 16px 0; }
+
+.stats-grid { display: flex; gap: 12px; margin-bottom: 16px; }
+.stat-circle-box { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; flex: 1; }
+.small-aqi-circle { width: 44px; height: 44px; border: 4px solid var(--primary-green); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; }
+.stat-pm25-box { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; flex: 1.2; }
+.pm25-title { font-size: 11px; color: var(--text-muted); display: block; }
+.pm25-value { font-size: 18px; font-weight: bold; color: #111; }
+.pm25-desc { font-size: 10px; color: var(--text-muted); margin: 2px 0 0 0; }
+
+.amenities-tags { display: flex; gap: 8px; flex-wrap: wrap;}
+.amenity-tag { background: #fff; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; font-size: 12px; }
+
+.reviews-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;}
+.view-all-link { background: none; border: none; color: var(--primary-green); font-size: 12px; cursor: pointer; }
+
+.input-review-box { display: flex; gap: 8px; margin-bottom: 16px; }
+.review-textarea { flex: 1; height: 50px; border: 1px solid var(--border-color); border-radius: 8px; padding: 8px; resize: none; font-size: 12px; }
+.btn-submit-review { background-color: var(--primary-green); color: #fff; border: none; border-radius: 8px; width: 60px; cursor: pointer; display: flex; justify-content: center; align-items: center;}
+
+.review-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 12px;}
+.rev-user-info { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.rev-avatar { width: 32px; height: 32px; border-radius: 50%; }
+.rev-user-info h5 { margin: 0; font-size: 13px; }
+.stars { color: #ffb300; font-size: 11px;}
+.rev-date { font-size: 10px; color: var(--text-muted); margin-left: auto; }
+.rev-text { font-size: 12px; line-height: 1.4; margin: 0; }
+
+.floating-route-btn { position: absolute; right: 20px; bottom: 80px; width: 56px; height: 56px; background-color: var(--primary-green); color: white; border-radius: 50%; border: none; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 10; display: flex; justify-content: center; align-items: center;}
+
+/* ==========================================================================
+   6. MÀN HÌNH 4: TẤT CẢ BÌNH LUẬN (REVIEWS)
+   ========================================================================== */
+.review-header-nav { justify-content: flex-start; gap: 12px; }
+.back-btn { background: none; border: none; font-size: 18px; color: var(--primary-green); cursor: pointer; padding: 4px 8px; }
+.header-title { font-size: 16px; margin: 0; color: #111; font-weight: bold; }
+
+.rating-summary-box { text-align: center; background: #fff; padding: 16px; border-radius: 12px 12px 0 0; border: 1px solid var(--border-color); border-bottom: none; }
+.big-score { font-size: 44px; font-weight: bold; color: #111; line-height: 1; }
+.stars-display { margin: 6px 0; font-size: 14px; color: #ffb300;}
+.total-reviews-count { font-size: 11px; color: var(--text-muted); }
+
+.distribution-graph-card { background: #fff; padding: 0 16px 16px 16px; border-radius: 0 0 12px 12px; border: 1px solid var(--border-color); border-top: none; margin-bottom: 20px; }
+.graph-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.star-label { font-size: 11px; color: var(--text-muted); width: 10px; }
+.bar-container { flex: 1; height: 6px; background-color: #f1f3f4; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; background-color: var(--primary-green); border-radius: 3px; }
+
+.list-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.list-title { font-size: 14px; font-weight: bold; color: var(--text-dark); }
+.sort-dropdown-btn { background: #fff; border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; font-size: 11px; color: var(--text-dark); cursor: pointer; }
+
+.review-item-block { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+.review-user-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.user-avatar-circle { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background-color: #eee; }
+.user-meta-details { flex: 1; }
+.user-name-txt { font-size: 12px; font-weight: bold; margin: 0 0 2px 0; }
+.timestamp-txt { font-size: 10px; color: var(--text-muted); }
+.individual-stars { font-size: 11px; color: #ffb300; }
+.review-body-text { font-size: 12px; color: #333; line-height: 1.5; margin: 0; }
+
+/* ==========================================================================
+   7. MÀN HÌNH 5: LỘ TRÌNH XANH (GREEN ROUTE MAP)
+   ========================================================================== */
+.map-header-overlay { position: absolute; top: 0; width: 100%; background: transparent; border-bottom: none; z-index: 15; padding: 0 12px; box-sizing: border-box; }
+.back-btn-map { background: rgba(255, 255, 255, 0.9); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; color: var(--primary-green); cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-top: 10px; }
+
+.map-viewport { flex: 1; position: relative; background-color: #1a1c1e; overflow: hidden; }
+.mock-map-canvas { width: 100%; height: 100%; background-image: radial-gradient(circle at 30% 40%, transparent 60%, rgba(17, 120, 67, 0.15) 62%), linear-gradient(45deg, transparent 45%, #00ff66 46%, #00ff66 48%, transparent 49%), linear-gradient(-30deg, transparent 48%, #117843 49%, #117843 51%, transparent 52%); background-size: cover; opacity: 0.85; }
+
+.map-controls-group { position: absolute; top: 65px; right: 12px; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
+.map-ctrl-btn { width: 36px; height: 36px; background-color: #ffffff; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+
+.route-info-sheet { background-color: #ffffff; border-radius: 24px 24px 0 0; padding: 12px 16px 24px 16px; box-shadow: 0 -4px 16px rgba(0,0,0,0.15); position: relative; z-index: 12; flex-shrink: 0; }
+.sheet-handle { width: 36px; height: 4px; background-color: #ccc; border-radius: 2px; margin: 0 auto 12px auto; }
+.route-header-row { margin-bottom: 12px; }
+.title-badge-group { display: flex; align-items: center; gap: 8px; }
+.route-title { font-size: 18px; font-weight: bold; margin: 0; color: #111; }
+.recommend-badge { background-color: #ff9800; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+.sub-aqi-text { font-size: 11px; color: var(--text-muted); display: block; margin-top: 2px; }
+
+.route-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.meta-box { background-color: var(--background-gray); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px; }
+.meta-box small { font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.meta-val { font-size: 24px; font-weight: bold; color: #111; }
+.meta-val .unit { font-size: 14px; font-weight: normal; }
+.aqi-panel-box.status-good { background-color: var(--light-green); border-color: #a3e2bc; }
+.aqi-panel-box.status-good .meta-val { color: var(--primary-green); }
+.status-lbl { font-size: 12px; background-color: var(--primary-green); color: #fff; padding: 1px 6px; border-radius: 4px; margin-left: 4px; }
+.meta-val-small { font-size: 14px; font-weight: bold; color: #333; margin-top: 2px; }
+
+.btn-start-navigation { width: 100%; background-color: var(--primary-green); color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(17, 120, 67, 0.3); transition: background-color 0.2s; }
+
+/* ==========================================================================
+   8. MÀN HÌNH 6: CẢNH BÁO AQI (AQI ALERT)
+   ========================================================================== */
+.back-btn-alert { background: none; border: none; font-size: 14px; font-weight: bold; color: var(--primary-green); cursor: pointer; padding: 6px 0; }
+.health-alert-zone { border-radius: 16px; padding: 20px; text-align: center; color: #ffffff; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+.health-alert-zone.level-danger { background: linear-gradient(135deg, #e53935, #b71c1c); }
+.alert-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; background: rgba(255, 255, 255, 0.2); padding: 4px 10px; border-radius: 20px; display: inline-block; }
+.huge-aqi-value { font-size: 72px; font-weight: 900; margin: 12px 0 4px 0; line-height: 1; }
+.aqi-level-badge { background-color: #ffffff; color: #b71c1c; font-weight: bold; font-size: 14px; padding: 4px 16px; border-radius: 6px; display: inline-block; margin-bottom: 14px; }
+.alert-message-text { font-size: 12px; line-height: 1.6; margin: 0; text-align: left; background: rgba(0, 0, 0, 0.15); padding: 12px; border-radius: 8px; }
+
+.suggestion-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.section-title-alert { font-size: 14px; font-weight: bold; color: var(--text-dark); margin: 0; }
+.recommend-tag { background-color: var(--light-green); color: var(--primary-green); font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+
+.spot-suggestion-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.spot-card-img { width: 100%; height: 130px; object-fit: cover; }
+.spot-card-body { padding: 12px 16px; display: flex; justify-content: space-between; align-items: flex-start; }
+.spot-card-info .spot-title { margin: 0 0 4px 0; font-size: 15px; font-weight: bold; color: #111; }
+.spot-card-info .spot-meta { margin: 0 0 8px 0; font-size: 11px; color: var(--text-muted); }
+.spot-amenities-badges { display: flex; gap: 4px; flex-wrap: wrap; }
+.amenity-mini { background-color: #f1f3f4; color: #5f6368; font-size: 9px; padding: 2px 6px; border-radius: 4px; }
+.spot-card-rating { background-color: #fff8e1; border: 1px solid #ffe082; padding: 4px 8px; border-radius: 8px; }
+.rating-num { font-weight: bold; color: #ffb300; font-size: 13px; }
+.btn-route-guidance { width: calc(100% - 32px); margin: 0 16px 16px 16px; background-color: var(--primary-green); color: #ffffff; border: none; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; }
+
+.expert-advice-card { background-color: #fff3e0; border: 1px solid #ffe0b2; border-left: 5px solid #ff9800; }
+.expert-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.expert-header h4 { margin: 0; font-size: 13px; color: #e65100; font-weight: bold; }
+.expert-text { font-size: 11px; color: #e65100; line-height: 1.5; margin: 0; }
+
+/* ==========================================================================
+   9. ADMIN & DASHBOARD COMPONENTS (SCREEN 7, 9, 14)
+   ========================================================================== */
+.admin-header { background-color: #f8fbfa;}
+.avatar-img.admin-border { border: 2px solid #0288d1; }
+.admin-nav .nav-item.active { color: var(--primary-green); }
+.admin-title-zone { margin-bottom: 16px; }
+.admin-title-zone .page-title { font-size: 22px; font-weight: bold; color: #111; margin: 0 0 4px 0; }
+.admin-title-zone .page-subtitle { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+.status-active-card, .status-overview-card, .active-users-card { background-color: #ffffff; border: 1px solid var(--border-color); padding: 14px 16px; border-radius: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); margin-bottom: 16px;}
+.status-badge-row { display: flex; align-items: center; gap: 4px; }
+.status-badge-row .check-icon { background-color: var(--light-green); color: var(--primary-green); width: 16px; height: 16px; font-size: 10px; display: flex; justify-content: center; align-items: center; border-radius: 50%; }
+.status-text-lbl { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+.active-count-num { font-size: 32px; font-weight: bold; color: #111; margin: 4px 0; }
+.total-label { font-size: 10px; color: #999; }
+
+.list-action-bar { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 12px 0; }
+.list-title-txt { font-size: 14px; font-weight: bold; color: var(--text-dark); margin: 0; }
+.btn-add-new { background-color: var(--primary-green); color: #ffffff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
+
+.facility-admin-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+.facility-type-icon { width: 40px; height: 40px; background-color: #f1f3f4; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 18px; }
+.facility-details-mid { flex: 1; }
+.title-row-flex { display: flex; align-items: center; gap: 6px; }
+.facility-name-txt { font-size: 13px; font-weight: bold; margin: 0; color: #111; }
+.facility-address-txt { font-size: 11px; color: var(--text-muted); margin: 2px 0 6px 0; }
+.facility-meta-row { display: flex; gap: 12px; font-size: 10px; color: #999; }
+.meta-aqi-battery { font-weight: bold; color: var(--primary-green); }
+.meta-aqi-battery.warning-level { color: #ef6c00; }
+.btn-delete-facility { background: none; border: none; font-size: 16px; color: #999; cursor: pointer; padding: 4px; transition: color 0.2s; }
+.btn-delete-facility:hover { color: #e53935; }
+
+/* Dashboard specifics */
+.admin-welcome-zone { margin-bottom: 20px; }
+.welcome-txt { font-size: 12px; color: var(--text-muted); }
+.dashboard-title { font-size: 24px; font-weight: bold; color: #111; margin: 4px 0 0 0; }
+.card-meta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.card-icon-lbl { font-size: 12px; color: var(--text-muted); font-weight: bold; }
+.aqi-status-tag { font-size: 10px; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+.status-good-tag { background-color: var(--light-green); color: var(--primary-green); }
+.main-stat-row { display: flex; align-items: baseline; gap: 4px; margin-bottom: 12px; }
+.stat-large-num { font-size: 40px; font-weight: 900; color: #111; line-height: 1; }
+.stat-unit-lbl { font-size: 14px; color: var(--text-muted); font-weight: bold; }
+.stat-progress-bar { height: 6px; background-color: #f1f3f4; border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+.progress-fill.fill-green { height: 100%; background-color: var(--primary-green); border-radius: 3px; }
+.stat-footer-row { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); }
+
+.users-stat-container { display: flex; justify-content: space-between; align-items: center; }
+.users-num-col { display: flex; flex-direction: column; }
+.growth-lbl { font-size: 11px; color: var(--primary-green); font-weight: bold; margin-top: 4px; }
+.users-avatar-stack { display: flex; align-items: center; }
+.stack-img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; background-color: #ddd; margin-left: -8px; position: relative; }
+.stack-img:first-child { margin-left: 0; }
+.stack-more { width: 28px; height: 28px; border-radius: 50%; background-color: var(--primary-green); color: #fff; font-size: 10px; display: flex; justify-content: center; align-items: center; border: 2px solid #ffffff; margin-left: -8px; position: relative; z-index: 3; }
+
+.urgent-section-title { font-size: 14px; font-weight: bold; color: #e53935; margin: 24px 0 12px 0; }
+.violation-alert-btn { width: 100%; background-color: #ffebee; border: 1px solid #ffcdd2; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; text-align: left; }
+.alert-icon-box { width: 32px; height: 32px; background-color: #ffebee; color: #e53935; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0; }
+.alert-text-content { flex: 1; }
+.alert-text-content p { margin: 0 0 2px 0; font-size: 13px; font-weight: bold; color: #b71c1c; }
+.alert-text-content small { font-size: 10px; color: #d32f2f; line-height: 1.3; }
+.chevron-right { font-size: 20px; color: #e53935; }
+
+/* Admin Profile additions (Screen 14) */
+.admin-border-thick { border: 4px solid #0288d1 !important; }
+.admin-role-badge { background-color: #e3f2fd; color: #1565c0; font-size: 11px; padding: 4px 10px; border-radius: 12px; font-weight: bold; display: inline-block; margin-top: 6px; }
+.admin-verified-card { background-color: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 12px; padding: 16px; }
+.verified-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px;}
+.verified-header h4 { margin: 0; color: #2e7d32; font-size: 14px; }
+.admin-verified-card p { margin: 0; font-size: 11px; color: #388e3c; line-height: 1.4; }
+
+/* ==========================================================================
+   10. MÀN HÌNH 8: FORM THÊM CƠ SỞ (ADD FACILITY)
+   ========================================================================== */
+.form-page-title { font-size: 16px; font-weight: bold; color: #111; margin: 0 0 16px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12px; font-weight: bold; color: var(--text-dark); margin-bottom: 6px; }
+.required { color: #e53935; }
+.form-input { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; background-color: #ffffff; }
+.form-textarea { width: 100%; box-sizing: border-box; height: 90px; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; resize: none; font-family: inherit; }
+
+.map-picker-container { border: 1px solid var(--border-color); border-radius: 12px; height: 120px; overflow: hidden; cursor: pointer; }
+.mock-mini-map { width: 100%; height: 100%; background-color: #e3f2fd; background-image: radial-gradient(#90caf9 1px, transparent 0); background-size: 16px 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 12px; box-sizing: border-box; }
+.map-pin { font-size: 24px; margin-bottom: 4px; transition: transform 0.2s; }
+.map-picker-container:active .map-pin { transform: scale(1.3) translateY(-5px); }
+.map-instructions { font-size: 10px; color: #1565c0; text-align: center; font-weight: 500; }
+
+.toggle-group { display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; }
+.toggle-label-block { flex: 1; padding-right: 12px; }
+.toggle-title { font-size: 13px; font-weight: bold; color: #111; display: block; }
+.toggle-desc { font-size: 10px; color: var(--text-muted); margin: 2px 0 0 0; }
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; }
+input:checked + .slider { background-color: var(--primary-green); }
+input:checked + .slider:before { transform: translateX(20px); }
+.slider.round { border-radius: 24px; }
+.slider.round:before { border-radius: 50%; }
+
+.amenities-selectable-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.amenity-select-btn { background-color: #ffffff; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 12px; color: #555; cursor: pointer; transition: all 0.2s; }
+.amenity-select-btn.selected { background-color: var(--light-green); border-color: var(--primary-green); color: var(--primary-green); font-weight: bold; }
+.btn-add-more-tags { background-color: #f1f3f4; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 12px; color: var(--text-muted); cursor: pointer; }
+
+.form-actions-group { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.btn-submit-save { width: 100%; background-color: var(--primary-green); color: #ffffff; border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(17, 120, 67, 0.2); }
+.btn-cancel-form { width: 100%; background-color: #ffffff; color: #777; border: 1px solid var(--border-color); padding: 12px; border-radius: 10px; font-size: 14px; cursor: pointer; }
+
+/* ==========================================================================
+   11. MÀN HÌNH 10: QUẢN LÝ BÌNH LUẬN (MODERATION)
+   ========================================================================== */
+.moderation-header { justify-content: flex-start; padding: 0 16px; }
+.back-btn-mod { background: none; border: none; font-size: 14px; font-weight: bold; color: var(--primary-green); cursor: pointer; padding: 8px 0; }
+.mod-title { font-size: 18px; font-weight: bold; color: #111; margin: 8px 0 4px 0; }
+.mod-desc { font-size: 11px; color: #e53935; background-color: #ffebee; padding: 8px; border-radius: 6px; margin-bottom: 16px; line-height: 1.4; }
+
+.filter-section-box { border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; background-color: #fff; margin-bottom: 20px; }
+.filter-lbl { font-size: 11px; color: var(--text-muted); margin: 0 0 8px 0; }
+.location-filters-group { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.loc-filter-btn { background-color: #f1f3f4; border: 1px solid transparent; padding: 6px 12px; border-radius: 4px; font-size: 12px; color: var(--text-dark); cursor: pointer; }
+.loc-filter-btn.active { background-color: var(--primary-green); color: #fff; font-weight: bold; }
+.status-filters-group { display: flex; gap: 16px; }
+.custom-checkbox { display: flex; align-items: center; font-size: 12px; color: var(--text-dark); cursor: pointer; position: relative; padding-left: 24px; }
+.custom-checkbox input { position: absolute; opacity: 0; cursor: pointer; }
+.checkmark { position: absolute; top: -2px; left: 0; height: 16px; width: 16px; background-color: #eee; border-radius: 4px; }
+.custom-checkbox input:checked ~ .checkmark { background-color: var(--primary-green); }
+.checkmark:after { content: ""; position: absolute; display: none; }
+.custom-checkbox input:checked ~ .checkmark:after { display: block; }
+.custom-checkbox .checkmark:after { left: 5px; top: 2px; width: 4px; height: 8px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+.location-group-title { font-size: 14px; font-weight: bold; color: var(--primary-green); margin: 16px 0 8px 0; display: flex; align-items: center; gap: 4px; }
+.comment-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+.card-img-top { width: 100%; height: 100px; object-fit: cover; }
+.comment-card-body { padding: 12px; }
+.user-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.mod-avatar { width: 24px; height: 24px; border-radius: 50%; background-color: #ddd; }
+.mod-user-id { font-size: 11px; font-weight: bold; flex: 1; }
+.violation-badge { background-color: #ffebee; color: #c62828; font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; border: 1px solid #ffcdd2; }
+.comment-text-content { font-size: 12px; color: #333; line-height: 1.5; background-color: #f9f9f9; padding: 8px; border-radius: 6px; border-left: 3px solid #e53935; margin-bottom: 10px; }
+.comment-time-loc { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-bottom: 12px; }
+.card-actions-row { display: flex; gap: 8px; }
+.btn-del-comment { flex: 1; background-color: #e53935; color: #fff; border: none; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
+.btn-del-comment:disabled { background-color: #ef9a9a; cursor: not-allowed; }
+.btn-restore-comment { flex: 1; background-color: #e1f5fe; color: #0288d1; border: 1px solid #81d4fa; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
+.btn-restore-comment:disabled { background-color: #f5f5f5; color: #ccc; border-color: #ddd; cursor: not-allowed; }
+
+/* ==========================================================================
+   12. MÀN HÌNH 11, 12: ĐĂNG NHẬP & ĐĂNG KÝ (AUTH)
+   ========================================================================== */
+.auth-header { border-bottom: none; background-color: transparent; padding-top: 20px; }
+.auth-header .logo-text { font-size: 18px; }
+.login-page { background-color: #f9fbf9; padding: 20px;}
+.signup-page { padding-bottom: 100px; background-color: #f9fbf9; padding: 20px;}
+
+.welcome-section { margin: 20px 0 30px 0; }
+.main-greeting { font-size: 26px; font-weight: bold; color: #111; margin: 0 0 8px 0; }
+.sub-greeting { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+.auth-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; padding: 24px 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+.signup-card { margin-top: 10px; }
+.form-title { font-size: 18px; font-weight: bold; color: #111; text-align: center; margin: 0 0 24px 0; }
+
+.input-group { margin-bottom: 20px; }
+.label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.input-label { font-size: 12px; font-weight: bold; color: #333; display: block; margin-bottom: 8px; }
+.label-row .input-label { margin-bottom: 0; }
+
+.forgot-pwd-link { font-size: 11px; color: var(--primary-green); text-decoration: none; }
+.forgot-pwd-link:hover { text-decoration: underline; }
+
+.input-icon-wrapper { position: relative; display: flex; align-items: center; }
+.input-icon { position: absolute; left: 12px; font-size: 14px; color: #999; }
+.auth-input { width: 100%; box-sizing: border-box; padding: 12px 12px 12px 36px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 14px; background-color: #f9f9f9; transition: border-color 0.2s; }
+.auth-input:focus { outline: none; border-color: var(--primary-green); background-color: #fff; }
+.auth-input.no-icon { padding-left: 12px; }
+
+.error-text { color: #e53935; font-size: 11px; display: block; margin-top: 6px; min-height: 14px; }
+
+.btn-primary-auth { width: 100%; background-color: var(--primary-green); color: #ffffff; border: none; padding: 14px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(17, 120, 67, 0.25); margin-top: 8px; transition: background-color 0.2s; }
+.btn-primary-auth:active { background-color: #0d5c33; }
+
+.register-prompt, .login-prompt { text-align: center; margin-top: 24px; font-size: 12px; }
+.prompt-text { color: var(--text-muted); }
+.register-link, .login-link { color: var(--primary-green); font-weight: bold; text-decoration: none; margin-left: 4px; }
+
+.social-divider { display: flex; align-items: center; text-align: center; margin: 24px 0; color: #ccc; font-size: 11px; }
+.social-divider::before, .social-divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
+.social-divider span { padding: 0 10px; }
+
+.social-auth-group { display: flex; flex-direction: column; gap: 12px; }
+.social-auth-row { display: flex; gap: 12px; justify-content: center;}
+.btn-social { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.btn-social img { width: 18px; height: 18px; }
+.btn-social.google:hover { background-color: #fdf2f2; }
+.btn-social.facebook { background-color: #1877f2; color: #fff; border: none; }
+.btn-social.apple { background-color: #000; color: #fff; border: none; }
+.btn-social-icon { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; display: flex; justify-content: center; align-items: center; cursor: pointer;}
+.btn-social-icon img { width: 24px; height: 24px;}
+
+/* Signup Hero for Alternative screen (Role 3) */
+.signup-hero { margin-bottom: 20px; text-align: center;}
+.hero-app-name { font-size: 24px; font-weight: bold; color: var(--primary-green); margin: 0 0 8px 0; }
+.hero-subtitle { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+/* ==========================================================================
+   13. MÀN HÌNH 13: HỒ SƠ & CÀI ĐẶT (PROFILE)
+   ========================================================================== */
+.profile-header-center { display: flex; flex-direction: column; align-items: center; margin: 20px 0 24px 0; }
+.main-avatar-wrapper { position: relative; cursor: pointer; }
+.main-avatar-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-green); padding: 2px; }
+.edit-avatar-badge { position: absolute; bottom: 0; right: 0; background-color: var(--primary-green); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; border: 2px solid #fff; }
+
+.user-primary-info { text-align: center; margin-top: 12px; }
+.user-full-name { font-size: 20px; font-weight: bold; color: #111; margin: 0 0 4px 0; }
+.user-join-date { font-size: 11px; color: var(--text-muted); }
+
+.settings-section { margin-bottom: 24px; }
+.section-title-small { font-size: 12px; font-weight: bold; color: var(--text-muted); margin: 0 0 8px 12px; }
+.settings-card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px; padding: 0 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); }
+
+.info-row, .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid #f1f3f4; }
+.info-row.no-border, .toggle-row.no-border { border-bottom: none; }
+.info-content { display: flex; flex-direction: column; }
+.info-label { font-size: 10px; color: var(--text-muted); margin-bottom: 4px; }
+.info-value { font-size: 14px; font-weight: 500; color: #111; }
+.btn-edit-inline { background: none; border: none; font-size: 16px; color: var(--primary-green); cursor: pointer; padding: 8px; }
+.setting-item-title { font-size: 14px; font-weight: 500; color: #333; }
+.divider-line { height: 1px; background-color: #f1f3f4; width: 100%; }
+
+.slider-row { padding: 16px 0; }
+.slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.slider-val-display { background-color: var(--light-green); color: var(--primary-green); font-weight: bold; font-size: 12px; padding: 4px 12px; border-radius: 12px; }
+.custom-range-slider { width: 100%; -webkit-appearance: none; height: 6px; border-radius: 3px; background: #e0e0e0; outline: none; margin-bottom: 8px; }
+.custom-range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--primary-green); cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.slider-labels { display: flex; justify-content: space-between; font-size: 10px; color: #999; }
+
+.btn-logout { width: 100%; background-color: #fff; color: #e53935; border: 1px solid #e53935; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; transition: background-color 0.2s; }
+.btn-logout:active { background-color: #ffebee; }
+
+/* ==========================================================================
+   14. POP-UP MODAL (YÊU CẦU ĐĂNG NHẬP)
+   ========================================================================== */
+.modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 100; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+.modal-card { background-color: #fff; width: 80%; border-radius: 20px; padding: 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.2s; }
+.modal-overlay.active .modal-card { transform: translateY(0); }
+
+.modal-icon-circle { width: 56px; height: 56px; background-color: var(--light-green); color: var(--primary-green); font-size: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 16px auto; }
+.modal-title { font-size: 18px; font-weight: bold; margin: 0 0 12px 0; color: #111; }
+.modal-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin: 0 0 24px 0; }
+.w-100 { width: 100%; }
+
+.btn-cancel-text { background: none; border: none; color: var(--text-muted); font-size: 14px; font-weight: bold; padding: 12px; margin-top: 8px; cursor: pointer; width: 100%; }
