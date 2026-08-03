@@ -1,6 +1,5 @@
+import { sql } from "../db.mjs";
 import { assert, isNonEmptyString } from "../utils/validation.mjs";
-import { resampleRoute } from "../utils/geo.mjs";
-import { fetchIqAirMeasurement } from "../services/iqair-service.mjs";
 
 const routePlanCache = new Map();
 const ROUTE_PLAN_CACHE_TTL_MS = 2 * 60 * 1000;
@@ -92,58 +91,86 @@ function average(values) {
   return sum / values.length;
 }
 
-/**
- * Phần 2 — AQI trung bình toàn tuyến:
- * 1. resampleRoute() [(code)1] chia tuyến thành điểm mẫu ~1-1.5km, mỗi
- *    điểm mang theo segmentLengthM (trọng số).
- * 2. Mỗi điểm gọi fetchIqAirMeasurement() [(code) C, có sẵn trong
- *    iqair-service.mjs] — hàm này tự làm đúng chuỗi ưu tiên đã chốt:
- *    IQAir -> AQICN -> DB -> mặc định cứng (AQI 120).
- * 3. Gộp lại bằng trung bình CÓ TRỌNG SỐ theo segmentLengthM (không phải
- *    trung bình cộng đơn giản) — đoạn đường dài hơn ảnh hưởng nhiều hơn.
- *
- * `cache` là Map dùng chung cho cả 3-4 tuyến thay thế trong 1 request, để
- * các điểm mẫu trùng/gần nhau giữa các tuyến không gọi lại IQAir nhiều lần.
- */
-async function estimateRouteAqi(routeGeometry, cache) {
+function pickSampleCoordinates(routeGeometry) {
   const coordinates = routeGeometry?.coordinates ?? [];
-  const samples = resampleRoute(coordinates, 1500);
-
-  if (!samples.length) {
-    return { avgAqi: 120, aqiSource: "estimated", confidence: "low", sampleCount: 0 };
+  if (!coordinates.length) {
+    return [];
   }
 
-  const perSample = await Promise.all(samples.map(async (sample) => {
-    const cacheKey = `${sample.lat.toFixed(4)},${sample.lng.toFixed(4)}`;
-    let promise = cache.get(cacheKey);
-    if (!promise) {
-      promise = fetchIqAirMeasurement(sample.lat, sample.lng).catch(() => null);
-      cache.set(cacheKey, promise);
+  const indices = [0, Math.floor(coordinates.length / 2), coordinates.length - 1];
+  const unique = new Set();
+  const samples = [];
+
+  for (const index of indices) {
+    const point = coordinates[index];
+    if (!point || typeof point[0] !== "number" || typeof point[1] !== "number") {
+      continue;
     }
 
-    const measurement = await promise;
-    return {
-      aqi: measurement?.aqi ?? 120,
-      source: measurement?.source ?? "DB_DEFAULT",
-      weight: sample.segmentLengthM,
-    };
-  }));
+    const key = `${point[0].toFixed(4)},${point[1].toFixed(4)}`;
+    if (unique.has(key)) {
+      continue;
+    }
 
-  // "Đáng tin" chỉ khi mọi điểm mẫu đều lấy được từ IQAir thật (nguồn ưu
-  // tiên số 1 đã chốt) — nếu bất kỳ điểm nào phải rơi xuống AQICN/DB/mặc
-  // định, cả tuyến bị gắn confidence "low" (nguyên tắc thận trọng).
-  const confidence = perSample.every((p) => p.source === "IQAir") ? "high" : "low";
+    unique.add(key);
+    samples.push({ lng: point[0], lat: point[1] });
+  }
 
-  const weightTotal = perSample.reduce((sum, p) => sum + p.weight, 0);
-  const weightedAqi = weightTotal > 0
-    ? perSample.reduce((sum, p) => sum + p.aqi * p.weight, 0) / weightTotal
-    : average(perSample.map((p) => p.aqi)) ?? 120;
+  return samples;
+}
+
+async function fetchAqiFromDatabase(lat, lng) {
+  const row = (
+    await sql`
+      select
+        m.aqi,
+        m.measured_at,
+        l.name as location_name
+      from airpath.aqi_measurements m
+      join airpath.locations l on l.id = m.location_id
+      order by
+        power(l.lat - ${lat}, 2) + power(l.lng - ${lng}, 2),
+        m.measured_at desc
+      limit 1
+    `
+  )[0];
+
+  if (!row) {
+    return null;
+  }
 
   return {
-    avgAqi: Math.round(weightedAqi),
-    aqiSource: perSample.some((p) => p.source === "IQAir") ? "IQAir" : "estimated",
-    confidence,
-    sampleCount: samples.length,
+    aqi: Number(row.aqi),
+    source: "db",
+    measuredAt: row.measured_at,
+    locationName: row.location_name,
+  };
+}
+
+async function estimateRouteAqi(routeGeometry, cache) {
+  const samples = pickSampleCoordinates(routeGeometry);
+  if (!samples.length) {
+    return {
+      avgAqi: 140,
+      aqiSource: "estimated",
+    };
+  }
+
+  const sampleValues = await Promise.all(samples.map(async (sample) => {
+    const cacheKey = `${sample.lat.toFixed(4)},${sample.lng.toFixed(4)}`;
+    if (cache.has(cacheKey)) {
+      return cache.get(cacheKey);
+    }
+
+    const promise = fetchAqiFromDatabase(sample.lat, sample.lng)
+      .then((dbAqi) => dbAqi?.aqi ?? 150);
+    cache.set(cacheKey, promise);
+    return promise;
+  }));
+
+  return {
+    avgAqi: Math.round(average(sampleValues) ?? 140),
+    aqiSource: "DB",
   };
 }
 
@@ -183,11 +210,6 @@ function mapRouteForClient(route, maxRatio, shortestDistance) {
     exposure: deriveExposure(route.avgAqi),
     isWithinRatio: route.distanceM <= shortestDistance * maxRatio,
     aqiSource: route.aqiSource,
-    // "low" = ít nhất 1 điểm mẫu trên tuyến phải rơi xuống AQICN/DB/mặc
-    // định thay vì IQAir (nguồn ưu tiên số 1) — FE nên hiện badge kiểu
-    // "AQI ước tính" khi confidence = "low" thay vì trình bày như số đo chắc chắn.
-    confidence: route.confidence,
-    sampleCount: route.sampleCount,
     polyline: JSON.stringify(route.geometry?.coordinates ?? []),
     geometry: route.geometry,
     steps: route.steps,
@@ -328,8 +350,6 @@ export async function planRoutesController(body) {
       durationS,
       avgAqi: aqiEstimate.avgAqi,
       aqiSource: aqiEstimate.aqiSource,
-      confidence: aqiEstimate.confidence,
-      sampleCount: aqiEstimate.sampleCount,
       exposureScore,
       steps,
       geometry: route.geometry,
